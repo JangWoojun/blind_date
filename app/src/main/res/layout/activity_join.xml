@@ -6,29 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".auth.JoinActivity"
     android:background="@drawable/auth_image">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView android:src="@drawable/profile_img"
+            <ImageView
+                android:id="@+id/imageArea"
+                android:src="@drawable/profile_img"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="100dp"
+                />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:layout_margin="10dp">
 
-
-                <android.inputmethodservice.ExtractEditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailArea"
                     android:hint="Email"
                     android:layout_width="match_parent"
-                    android:layout_height="40sp"/>
-
+                    android:layout_height="wrap_content"/>
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -36,76 +40,17 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                app:counterMaxLength="10"
                 app:counterEnabled="true"
-                app:counterMaxLength="10">
+                android:background="@color/white"
+                android:layout_margin="10dp"
+                >
 
-
-                <android.inputmethodservice.ExtractEditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pwdArea"
                     android:hint="Password"
-                    android:inputType="textPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="40sp"/>
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                app:counterEnabled="true"
-                app:counterMaxLength="10">
-
-
-                <android.inputmethodservice.ExtractEditText
-                    android:hint="PasswordChek"
-                    android:inputType="textPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="40sp"/>
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-
-                <android.inputmethodservice.ExtractEditText
-                    android:hint="닉네임"
-                    android:layout_width="match_parent"
-                    android:layout_height="40sp"/>
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-
-                <android.inputmethodservice.ExtractEditText
-                    android:hint="성별(M/W)"
-                    android:layout_width="match_parent"
-                    android:layout_height="40sp"/>
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-
-                <android.inputmethodservice.ExtractEditText
-                    android:hint="지역"
-                    android:layout_width="match_parent"
-                    android:layout_height="40sp"
+                    android:layout_height="wrap_content"
                     />
 
 
@@ -114,27 +59,90 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:counterMaxLength="10"
+                app:counterEnabled="true"
+                android:background="@color/white"
                 android:layout_margin="10dp">
 
-
-                <android.inputmethodservice.ExtractEditText
-                    android:hint="나이"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:hint="Password Check"
                     android:layout_width="match_parent"
-                    android:layout_height="40sp"/>
+                    android:layout_height="wrap_content"/>
 
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_margin="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nicknameArea"
+                    android:hint="닉네임"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_margin="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/genderArea"
+                    android:hint="성별(M/W)"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_margin="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/cityArea"
+                    android:hint="지역"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_margin="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ageArea"
+                    android:hint="나이"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:id="@+id/joinBtn"
                 android:layout_margin="10dp"
                 android:text="회원가입"
                 android:layout_width="match_parent"
+                android:background="@color/pink"
                 android:layout_height="wrap_content"/>
 
 
-
         </LinearLayout>
-</ScrollView>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
