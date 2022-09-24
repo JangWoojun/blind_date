@@ -47,6 +47,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="textPassword"
                     android:id="@+id/passwordArea"
                     android:hint="Password"
                     android:layout_width="match_parent"
@@ -65,6 +66,7 @@
                 android:layout_margin="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="textPassword"
                     android:id="@+id/passwordChekArea"
                     android:hint="Password Check"
                     android:layout_width="match_parent"

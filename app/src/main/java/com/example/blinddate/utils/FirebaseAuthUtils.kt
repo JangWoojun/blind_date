@@ -9,7 +9,7 @@ class FirebaseAuthUtils {
         fun getUid():String {
             auth = FirebaseAuth.getInstance()
             return auth.currentUser?.uid.toString() // 현재 유저의 uid르 돌려줌
-        }
+         }
 
 
     }
