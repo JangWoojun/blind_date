@@ -1,6 +1,8 @@
 package com.example.blinddate.auth
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
 
 class JoinActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -29,12 +33,15 @@ class JoinActivity : AppCompatActivity() {
     private var age = ""
     private var uid = ""
 
+    lateinit var profileImage : ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join)
 
         auth = Firebase.auth
-        val profileImage = findViewById<ImageView>(R.id.imageArea)
+
+        profileImage = findViewById<ImageView>(R.id.imageArea)
 
         val getAction = registerForActivityResult(
             ActivityResultContracts.GetContent(),
@@ -76,6 +83,7 @@ class JoinActivity : AppCompatActivity() {
                         )
 
                         FirebaseRef.userInfoRef.child(uid).setValue(userModel)
+                        uploadImage(uid)
 
                         Toast.makeText(this,"회원가입을 성공하셨습니다",Toast.LENGTH_LONG).show()
 
@@ -94,5 +102,26 @@ class JoinActivity : AppCompatActivity() {
         }
 
 
+    }
+    private fun uploadImage(uid : String){
+
+        val storage = Firebase.storage
+        val storageRef = storage.reference.child(uid+".png")
+
+        // Get the data from an ImageView as bytes
+        profileImage.isDrawingCacheEnabled = true
+        profileImage.buildDrawingCache()
+        val bitmap = (profileImage.drawable as BitmapDrawable).bitmap
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+
+        var uploadTask = storageRef.putBytes(data)
+        uploadTask.addOnFailureListener {
+            // Handle unsuccessful uploads
+        }.addOnSuccessListener { taskSnapshot ->
+            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+            // ...
+        }
     }
 }
