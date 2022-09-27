@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onCardSwiped(direction: Direction?) {
                 if(direction == Direction.Right) {
-
+                    userLikeOtherUser(uid,usersDataList[userCount].uid.toString())
                 }
                 if(direction == Direction.Left) {
 
@@ -149,5 +149,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         FirebaseRef.userInfoRef.addValueEventListener(postListener)
+    }
+    private fun userLikeOtherUser(myUid : String,otherUid : String){
+        FirebaseRef.userLikeRef.child(myUid).child(otherUid).setValue("true")
     }
 }
