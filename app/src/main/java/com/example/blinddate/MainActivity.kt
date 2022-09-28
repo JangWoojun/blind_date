@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.blinddate.auth.IntroActivity
 import com.example.blinddate.auth.UserDataModel
@@ -64,14 +65,16 @@ class MainActivity : AppCompatActivity() {
 
             override fun onCardSwiped(direction: Direction?) {
                 if(direction == Direction.Right) {
+                    Toast.makeText(this@MainActivity,"Like",Toast.LENGTH_LONG).show()
                     userLikeOtherUser(uid,usersDataList[userCount].uid.toString())
                 }
                 if(direction == Direction.Left) {
-
+                    Toast.makeText(this@MainActivity,"Hate",Toast.LENGTH_LONG).show()
                 }
                 userCount+=1
                 if (userCount == usersDataList.count()){
                     getUserDataList(currentUserGender)
+                    Toast.makeText(this@MainActivity,"유저를 새롭게 받아옵니다",Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -152,5 +155,26 @@ class MainActivity : AppCompatActivity() {
     }
     private fun userLikeOtherUser(myUid : String,otherUid : String){
         FirebaseRef.userLikeRef.child(myUid).child(otherUid).setValue("true")
+        getOtherUserLikeList(otherUid)
+    }
+    private fun getOtherUserLikeList(otherUid : String){
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                for (dataModel in dataSnapshot.children){
+                    val  likeUserKey = dataModel.key.toString()
+                    if (likeUserKey==uid){
+                        Toast.makeText(this@MainActivity,"매칭 완료",Toast.LENGTH_LONG).show()
+                    }
+                }
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        FirebaseRef.userLikeRef.child(otherUid).addValueEventListener(postListener)
     }
 }
