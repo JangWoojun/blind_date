@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     else {
                         usersDataList.add(user!!) // 실시간 데이터베이스에서 읽고 거기서 담은 정보를 리스트에 넣어준다
-                                                    // 같은 성별이 아닐 때만
+                        // 같은 성별이 아닐 때만
                     }
 
                 }
