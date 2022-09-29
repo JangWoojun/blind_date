@@ -4,6 +4,7 @@ import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ListView
 import android.widget.Toast
 import com.example.blinddate.R
 import com.example.blinddate.auth.UserDataModel
@@ -21,9 +22,18 @@ class MyLikeListActivity : AppCompatActivity() {
     private var likeUserListUid = mutableListOf<String>()
     private var likeUserList = mutableListOf<UserDataModel>()
 
+    lateinit var listViewAdapter: ListViewAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_like_list)
+
+        val userListView = findViewById<ListView>(R.id.userListView)
+
+        listViewAdapter = ListViewAdapter(this,likeUserList)
+        userListView.adapter = listViewAdapter
+
+
         getUserDataList()
         getMyLikeList()
     }
@@ -57,6 +67,7 @@ class MyLikeListActivity : AppCompatActivity() {
                     }
 
                 }
+                listViewAdapter.notifyDataSetChanged()
                 Log.d(TAG,likeUserList.toString())
             }
 
