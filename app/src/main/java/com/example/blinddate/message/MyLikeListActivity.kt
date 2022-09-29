@@ -34,8 +34,42 @@ class MyLikeListActivity : AppCompatActivity() {
         userListView.adapter = listViewAdapter
 
 
-        getUserDataList()
         getMyLikeList()
+
+
+        userListView.setOnItemClickListener { parent, view, position, id ->
+            checkMatching(likeUserList[position].uid.toString())
+        }
+
+    }
+    private fun checkMatching(otherUid:String){
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                if (dataSnapshot.children.count()==0){
+                    Toast.makeText(this@MyLikeListActivity,"매칭이 실패하였습니다",Toast.LENGTH_LONG).show()
+                }
+                else {
+                    for (dataModel in dataSnapshot.children){
+                        val likeUserList = dataModel.key.toString()
+                        if (likeUserList==uid){
+                            Toast.makeText(this@MyLikeListActivity,"매칭이 성공하였습니다",Toast.LENGTH_LONG).show()
+                        }
+                        else {
+                            Toast.makeText(this@MyLikeListActivity,"매칭이 실패하였습니다",Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        FirebaseRef.userLikeRef.child(otherUid).addValueEventListener(postListener)
     }
     private fun getMyLikeList(){
         val postListener = object : ValueEventListener {
